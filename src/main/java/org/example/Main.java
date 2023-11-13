@@ -15,7 +15,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         // Чтение данных из CSV файла и создание объектов YourDataClass
-        var dataList = readDataFromCSV("basicprogramming.csv"); // Замените на свой CSV файл
+        var dataList = readDataFromCSV("basicprogramming.csv"); 
 
         // Создание таблиц в БД
         SQLiteDB.createTables();
@@ -39,7 +39,7 @@ public class Main {
         try (var reader = new CSVReaderBuilder(new FileReader(filePath)).withSkipLines(3).build()) {
             String[] line;
             while ((line = reader.readNext()) != null) {
-                var dataParts = line[0].split(";", 8);
+                var dataParts = String.join(",", line).split(";", 8);
 
                 var student = new Student(dataParts[0], dataParts[1], dataParts[2], dataParts[3], Integer.parseInt(dataParts[4]), Integer.parseInt(dataParts[5]), Integer.parseInt(dataParts[6]));
 
