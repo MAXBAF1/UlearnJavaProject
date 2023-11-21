@@ -7,15 +7,19 @@ import org.example.db.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class CSVParserService {
-
+    private String[] titles;
     private final StudentService studentService;
 
     @Autowired
@@ -24,7 +28,11 @@ public class CSVParserService {
     }
 
     public void parseAndSaveStudents(String filePath) {
-        try (var reader = new CSVReaderBuilder(new FileReader(filePath)).withSkipLines(3).build()) {
+        try (var fileInputStream = new FileInputStream(filePath);
+             var inputStreamReader = new InputStreamReader(fileInputStream, Charset.forName("windows-1251"));
+             var reader = new CSVReaderBuilder(inputStreamReader).build()) {
+            titles = String.join(",", reader.readNext()).split(";");
+            reader.skip(1);
             String[] line;
             while ((line = reader.readNext()) != null) {
                 var student = createStudentFromCSV(line);
@@ -37,12 +45,14 @@ public class CSVParserService {
 
     private Student createStudentFromCSV(String[] csvData) {
         var dataParts = String.join(",", csvData).split(";", 8);
-        var nameParts = dataParts[0].split(" ");
+        var nameParts = dataParts[0].split("\\s+");
+
         var student = new Student();
-        student.setUlearnId(UUID.randomUUID());
-        student.setFirstName(csvData[0]);
-        student.setLastName(csvData[1]);
-        student.setMail(csvData[2]);
+        student.setFirstName(nameParts.length > 1 ? nameParts[1] : nameParts[0]);
+        student.setLastName(nameParts.length == 1 ? "" : nameParts[0]);
+        student.setUlearnId(UUID.fromString(dataParts[1]));
+        student.setMail(dataParts[2]);
+        student.setMarks(null);
 
         return student;
     }
