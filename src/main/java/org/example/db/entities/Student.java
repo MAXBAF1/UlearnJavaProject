@@ -1,5 +1,6 @@
 package org.example.db.entities;
 
+import com.vk.api.sdk.objects.base.Sex;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,4 +27,6 @@ public class Student implements Serializable {
     private List<Mark> marks;
     @Column
     private Integer followersCnt;
+    @Column
+    private Sex sex;
 }

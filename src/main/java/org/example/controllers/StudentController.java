@@ -21,19 +21,17 @@ public class StudentController {
     }
 
     @PostMapping("parse")
-    public ResponseEntity<String> parseCSV(@RequestParam String filePath) {
+    public void parseCSV(@RequestParam String filePath) {
         csvParserService.parseAndSaveStudents(filePath);
-        return ResponseEntity.ok("Data parsed and saved successfully.");
     }
 
     @PostMapping("vkData")
-    public ResponseEntity<String> parseVkData(
+    public void parseVkData(
             @RequestParam Integer appId,
             @RequestParam String accessToken,
             @RequestParam String clientSecret,
             @RequestParam String groupId
     ) {
         vkApiService.getAdditionalInfoAndSaveStudents(appId, accessToken, clientSecret, groupId);
-        return ResponseEntity.ok("Data parsed and saved successfully.");
     }
 }
