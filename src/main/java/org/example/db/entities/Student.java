@@ -24,4 +24,6 @@ public class Student implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private List<Mark> marks;
+    @Column
+    private Integer followersCnt;
 }
