@@ -1,8 +1,8 @@
 package org.example.controllers;
 
 import org.example.db.services.CSVParserService;
+import org.example.db.services.ChartsService;
 import org.example.db.services.VKApiService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
     private final CSVParserService csvParserService;
     private final VKApiService vkApiService;
+    private final ChartsService chartsService;
 
-    public StudentController(CSVParserService csvParserService, VKApiService vkApiService) {
+    public StudentController(CSVParserService csvParserService, VKApiService vkApiService, ChartsService chartsService) {
         this.csvParserService = csvParserService;
         this.vkApiService = vkApiService;
+        this.chartsService = chartsService;
     }
 
     @PostMapping("parse")
@@ -33,5 +35,10 @@ public class StudentController {
             @RequestParam String groupId
     ) {
         vkApiService.getAdditionalInfoAndSaveStudents(appId, accessToken, clientSecret, groupId);
+    }
+
+    @PostMapping("charts")
+    public void createCharts() {
+        chartsService.createCharts();
     }
 }

@@ -3,6 +3,8 @@ package org.example.db.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Entity
 public class Mark {
@@ -18,6 +20,6 @@ public class Mark {
     private Exercise exercise;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "ulearn_id")
     private Student student;
 }

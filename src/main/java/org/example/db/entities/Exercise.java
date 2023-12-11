@@ -13,7 +13,4 @@ public class Exercise implements Serializable {
     private Integer id;
     @Column
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "lesson_id")
-    private Lesson lesson;
 }

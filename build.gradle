@@ -9,10 +9,12 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-
 }
 
 dependencies {
+    // Charts
+    implementation 'org.jfree:jfreechart:1.5.0'
+
     // VK api
     implementation 'com.vk.api:sdk:1.0.15'
 

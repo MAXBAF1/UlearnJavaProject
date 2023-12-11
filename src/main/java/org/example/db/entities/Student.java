@@ -23,6 +23,7 @@ public class Student implements Serializable {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    @Column
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private List<Mark> marks;
     @Column
