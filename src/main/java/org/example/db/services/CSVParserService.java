@@ -1,6 +1,5 @@
 package org.example.db.services;
 
-import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 import org.example.db.entities.Exercise;
@@ -10,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +57,7 @@ public class CSVParserService {
         var student = new Student();
         student.setFirstName(nameParts.length > 1 ? nameParts[1] : nameParts[0]);
         student.setLastName(nameParts.length == 1 ? "" : nameParts[0]);
-        student.setUlearnId(UUID.fromString(dataParts[1]));
+        student.setId(UUID.fromString(dataParts[1]));
         student.setMail(dataParts[2]);
         student.setMarks(getMarks(dataParts));
 
@@ -70,7 +67,7 @@ public class CSVParserService {
     private List<Mark> getMarks(String[] dataParts) {
         var marks = new ArrayList<Mark>();
 
-        for (var i = 8; i < dataParts.length; i++) {
+        for (var i = 4; i < dataParts.length; i++) {
             var mark = new Mark();
 
             mark.setExercise(exercises[i]);

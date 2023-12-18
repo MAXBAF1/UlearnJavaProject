@@ -12,19 +12,15 @@ import java.util.UUID;
 @Entity
 public class Student implements Serializable {
     @Id
-    private UUID ulearnId;
+    private UUID id;
     @Column
     private String firstName;
     @Column
     private String lastName;
     @Column
     private String mail;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "group_id")
-    private Group group;
-
-    @Column
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Mark> marks;
     @Column
     private Integer followersCnt;

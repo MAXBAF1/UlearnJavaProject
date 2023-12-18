@@ -20,6 +20,6 @@ public class Mark {
     private Exercise exercise;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ulearn_id")
+    @JoinColumn(name = "student_id")
     private Student student;
 }
